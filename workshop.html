@@ -7,6 +7,41 @@
   </head>
   <body>
     <h1>Open the console</h1>
-    <script></script>
+    <script>
+      //example1
+      const URL = "https://pokeapi.co/api/v2/pokemon/pikachu";
+      let promise = fetch(URL);
+      promise
+        .then((data) => data.json())
+        .then((rez) => console.log(rez))
+        .catch((error) => console.log(error));
+      //example2
+      function getUser(username) {
+        return fetch(
+          "https://api.github.com/users/" + username
+          //+"?access_token={{TOKEN_HERE}}"
+        );
+      }
+      function getRepos(user, reposurl) {
+        //Fetch the a user using getUser
+        let git = getUser(user);
+        //then use getRepos to fetch their repos using the repos_url from the user object.
+        let repo = fetch(git + reposurl);
+        //Log the array of repos
+        return repo.then((rez) => rez.json());
+      }
+
+      getRepos("oliverjam", "/learn-fetch/")
+        .then((user) => console.log(user))
+        .catch((error) => console.log(error));
+
+      /*let rezult = getRepos("oliverjam", "/learn-fetch/").then((user) =>
+        console.log(user)
+      );
+      const container = document.createElement("div");
+      const block = document.createElement("p");
+      block.innerHTML = rezult;
+      container.appendChild(block);*/
+    </script>
   </body>
 </html>
